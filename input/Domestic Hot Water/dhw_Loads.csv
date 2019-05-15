@@ -1,0 +1,6 @@
+HOT WATER DEMAND LOAD CATEGORIES;;;;
+;Shower;Bath;Medium;Small
+Flow rate [L/min];8;14;6;1
+Sigma flow rate [L/min];2;2;2;2
+Duration [min];5;10;2;1
+Sigma duration [min];2;2;2;1
