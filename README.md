@@ -20,7 +20,7 @@ Python 2.7 (installation with Anaconda recommended)
 
 Input file (csv)
 ----------------
-Each building is described with the following information:
+Each building is described with the following information:\n
   A.	Area (required)
       Building ground floor area in m²
   B.	Use (required)
