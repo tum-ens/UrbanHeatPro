@@ -24,18 +24,19 @@ Each building is described with the following information:
       Building ground floor area in m²
   <li>Use (required)</li>
       Building use as integer:
-        <ul style="list-style-type:none">
+        <ul>
           <li>0	Commercial</li>
           <li>1	Industrial</li>
           <li>2	Public</li>
           <li>3	Residential</li>
+        </ul>
   <li>Bid (optional)</li>
       Building identification number as integer
   <li>Free_walls (required)</li>
       Number of walls in contact with ambient temperature. The building is assumed to be a rectangular box with four walls.
   <li>Construction year class (optional)</li>
       Construction year class from TABULA Typology as integer:
-        <ul style="list-style-type:none">
+        <ul>
           <li>0	<1859</li>
           <li>1	1860 - 1918</li>
           <li>2	1919 - 1948</li>
@@ -46,6 +47,7 @@ Each building is described with the following information:
           <li>7	1984 - 1994</li>
           <li>8	1995 - 2001</li>
           <li>9	2002 - 2009</li>
+        </ul>
   <li>Building type (optional)</li>
       Building type from TABULA Typology as integer:
         0	Single-Family House (SFH)
