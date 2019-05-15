@@ -22,17 +22,17 @@ Each building is described with the following information:
 <ol>
   <li>Area (required)</li>
       Building ground floor area in m²
-  B.	Use (required)
+  <li>Use (required)</li>
       Building use as integer:
-        0	Commercial
-        1	Industrial
-        2	Public
-        3	Residential
-  C.	Bid (optional)
+        0	Commercial;
+        1	Industrial;
+        2	Public;
+        3	Residential;
+  <li>Bid (optional)</li>
       Building identification number as integer
-  D.	Free_walls (required)
+  <li>Free_walls (required)</li>
       Number of walls in contact with ambient temperature. The building is assumed to be a rectangular box with four walls.
-  E.	Construction year class (optional)
+  <li>Construction year class (optional)</li>
       Construction year class from TABULA Typology as integer:
         0	<1859
         1	1860 - 1918
@@ -44,12 +44,13 @@ Each building is described with the following information:
         7	1984 - 1994
         8	1995 - 2001
         9	2002 - 2009
-  F.	Building type (optional)
+  <li>Building type (optional)</li>
       Building type from TABULA Typology as integer:
         0	Single-Family House (SFH)
         1	Terraced House (TH)
         2	Multi-family House (MFH)
         3	Apartment Block (AB)
+</ol>
 All columns are required, if no information is given, the cell value is taken as NaN.
 This input file should be located in the corresponding folder input/buildings
 
