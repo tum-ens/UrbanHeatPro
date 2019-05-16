@@ -14,8 +14,7 @@ Bottom-up model for the simulation of heat demand profiles of urban areas
 
 
 ## Requirements
-Python 3.6 if multiprocessing is used (installation with Anaconda recommended)
-Python 2.7 (installation with Anaconda recommended)
+Python 3.6 (installation with Anaconda recommended)
 
 
 ## Input file (csv)
