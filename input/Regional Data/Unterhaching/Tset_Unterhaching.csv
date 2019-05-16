@@ -1,6 +1,0 @@
-Set temperature [*C];;
-Building type;Tset;dT
-Commercial;19;2
-Industrial;17;2
-Public;19;2
-Residential;20;2
