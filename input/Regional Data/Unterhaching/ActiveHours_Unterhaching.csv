@@ -1,0 +1,6 @@
+Building schedule (active hours);;;
+Building type;Start;End;dt
+Commercial;8;18;2
+Industrial;8;18;2
+Public;8;16;2
+Residential;0;23;0

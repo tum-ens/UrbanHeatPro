@@ -1,0 +1,29 @@
+# Presentation
+
+figure.figsize: 9, 4
+lines.linewidth: 0.5
+patch.linewidth: 0
+lines.markersize: 8
+lines.markeredgewidth: 0
+
+axes.labelsize: 16
+axes.titlesize: 16
+axes.edgecolor: 000000
+axes.linewidth: 0.5
+axes.grid: True
+grid.linewidth: 0.8
+grid.color: cbcbcb
+
+legend.fontsize: 13
+legend.frameon: false
+
+xtick.labelsize: 13
+ytick.labelsize: 13
+xtick.major.width: 0.5
+xtick.minor.width: 0.5
+ytick.major.width: 0
+ytick.minor.width: 0
+xtick.major.pad: 10
+xtick.direction: inout
+
+

@@ -1,0 +1,3 @@
+# TUM palette
+# [tum blue, orange, black, dark blue, gray, light blue, green]
+axes.prop_cycle: cycler('color', ['3070B3', 'E37222', '000000', '808080', '64A0C8', 'A2AD00'])
