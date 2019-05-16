@@ -1,6 +1,6 @@
 """
 Simulation.py
-AMC @ TUM ENS
+A. Molar-Cruz @ TUM ENS
 """
 
 import os
