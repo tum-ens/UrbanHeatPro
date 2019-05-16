@@ -1,6 +1,6 @@
 # UrbanHeatPro
-## Bottom-up model for the simulation of heat demand profiles of urban areas
-### A. Molar-Cruz @ TUM ENS
+Bottom-up model for the simulation of heat demand profiles of urban areas
+##### A. Molar-Cruz @ TUM ENS
 ----------------------------------------------------------------------------
 
 ## Features
