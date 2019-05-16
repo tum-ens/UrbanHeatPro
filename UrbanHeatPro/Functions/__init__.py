@@ -1,6 +1,6 @@
 """
 UrbanHeatPro
-AMC @ ENS
+A. Molar-Cruz @ TUM ENS
 """
 
 from .plot import *
