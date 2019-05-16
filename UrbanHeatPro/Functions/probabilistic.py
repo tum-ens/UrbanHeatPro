@@ -1,11 +1,11 @@
 """
 probabilistic.py
-AMC @ TUM ENS
+A. Molar-Cruz @ TUM ENS
 """
 
 import numpy  as np
 from datetime import datetime
-from scipy 	  import interpolate
+from scipy    import interpolate
 
 # --------------------------------------------------------------------------------
 def create_normal_distribution(x, mean, sigma):
