@@ -1,6 +1,5 @@
 # UrbanHeatPro
-Bottom-up model for the simulation of heat demand profiles of urban areas
-##### A. Molar-Cruz @ TUM ENS
+A Bottom-up model for the simulation of heat demand profiles of urban areas
 ----------------------------------------------------------------------------
 
 ## Features
@@ -69,6 +68,6 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 
 ## Copyright
-Copyright (C) 2018-2019 TUM ENS
+Copyright (C) 2018-2019 Anahi Molar-Cruz
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details: http://www.gnu.org/licenses/.
