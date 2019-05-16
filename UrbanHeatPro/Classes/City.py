@@ -1,6 +1,6 @@
 """
 City.py
-AMC @ TUM ENS
+A. Molar-Cruz @ TUM ENS
 """
 
 import numpy as np
