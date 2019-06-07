@@ -36,96 +36,96 @@ class Building():
 		# General data
 		# --------------------------------------------------
 		# Building dataframe (from SynCity)
-		self.building			  = b							# Building dataframe
+		self.building			  = b					# Building dataframe
 		
 		# Simulation
-		self.dt_vector    		  = dt_vectors[0] 				# Vector of time steps as datetime objects
-		self.dt_vector_excel	  = dt_vectors[1] 				# Vector of time steps as excel date
-		self.resolution			  = resolution					# Temporal resolution in min
-		self.number_of_typ_days	  = number_of_typ_days			# Number of typical days
-		self.weights			  = weights						# Weights of typical days
+		self.dt_vector    		  = dt_vectors[0] 			# Vector of time steps as datetime objects
+		self.dt_vector_excel	          = dt_vectors[1] 			# Vector of time steps as excel date
+		self.resolution			  = resolution				# Temporal resolution in min
+		self.number_of_typ_days	          = number_of_typ_days			# Number of typical days
+		self.weights			  = weights				# Weights of typical days
 		
 		# Flags
-		self._space_heating		  = _space_heating				# Calculate space heating demand?
-		self._hot_water			  = _hot_water					# Calculate hot water demand?
-		self._energy_only		  = _energy_only				# Calculate only aggregated demand?
+		self._space_heating		  = _space_heating			# Calculate space heating demand?
+		self._hot_water			  = _hot_water				# Calculate hot water demand?
+		self._energy_only		  = _energy_only			# Calculate only aggregated demand?
 	
 		# External factors	
-		self.Tamb         		  = Tamb		 				# Ambient temperature vector in degC
-		self.I	         	  	  = I					 		# Solar radiation vector in W/m2 [I_Gh, I_Dh, I_ex, hs]
-		self.eta          		  = eta			 				# Heating process efficiency
-		self.thermal_inertia	  = thermal_inertia				# Thermal inertia of the heating system
+		self.Tamb         		  = Tamb		 		# Ambient temperature vector in degC
+		self.I	         	  	  = I					# Solar radiation vector in W/m2 [I_Gh, I_Dh, I_ex, hs]
+		self.eta          		  = eta			 		# Heating process efficiency
+		self.thermal_inertia	          = thermal_inertia			# Thermal inertia of the heating system
 		
 		# Result directory
-		self.result_dir			  = result_dir + '/Buildings/'	# Directory where results are stored
+		self.result_dir			  = result_dir + '/Buildings/'		# Directory where results are stored
 		
 		# Space heating demand
 		# --------------------------------------------------
 		# Building stock statistics
 		## Residential
-		self.FOOTPRINT			  = building_stock_stats[0][0]  # Footprint area of building typologies (TABULA)
-		self.ARATIO 			  = building_stock_stats[0][1]  # Area ratio [Roof, Wall, Window]
-		self.WRATIO_ORIENTATION	  = building_stock_stats[0][2]  # Window ratio [East, South, West, North]
-		self.FLOORS				  = building_stock_stats[0][3]  # Number of floors
-		self.U_RES				  = building_stock_stats[0][4]  # U-values for residential buildings
-		self.V_RES				  = building_stock_stats[0][5]  # Air flow rate (ventilation losses) for residential
-		self.C_RES				  = building_stock_stats[0][6]  # Thermal cap for residential buildings
-		self.CURRENT_REF_RES	  = building_stock_stats[0][7][0]  # Current percentage of residential refurbished buildings
-		self.MAX_REF_RES	  	  = building_stock_stats[0][7][1]  # Max percentage of residential refurbished buildings
-		self.SINGLE_DWELLING	  = building_stock_stats[0][8]  # Percentage of single dwellings for SFH and TH
-		self.AVG_DWELLING_SIZE	  = building_stock_stats[0][9]  # Average dwelling size in m2
-		self.HOUSEHOLD_SIZE		  = building_stock_stats[0][10] # Household size for dwelling size categories
-		self.STOCK_RES			  = building_stock_stats[0][17] # Building stock statistics for residential
+		self.FOOTPRINT			  = building_stock_stats[0][0]  	# Footprint area of building typologies (TABULA)
+		self.ARATIO 			  = building_stock_stats[0][1]  	# Area ratio [Roof, Wall, Window]
+		self.WRATIO_ORIENTATION	  	  = building_stock_stats[0][2]  	# Window ratio [East, South, West, North]
+		self.FLOORS			  = building_stock_stats[0][3]  	# Number of floors
+		self.U_RES			  = building_stock_stats[0][4]  	# U-values for residential buildings
+		self.V_RES			  = building_stock_stats[0][5]  	# Air flow rate (ventilation losses) for residential
+		self.C_RES			  = building_stock_stats[0][6]  	# Thermal cap for residential buildings
+		self.CURRENT_REF_RES	  	  = building_stock_stats[0][7][0]  	# Current percentage of residential refurbished buildings
+		self.MAX_REF_RES	  	  = building_stock_stats[0][7][1]  	# Max percentage of residential refurbished buildings
+		self.SINGLE_DWELLING	  	  = building_stock_stats[0][8]  	# Percentage of single dwellings for SFH and TH
+		self.AVG_DWELLING_SIZE	  	  = building_stock_stats[0][9]  	# Average dwelling size in m2
+		self.HOUSEHOLD_SIZE		  = building_stock_stats[0][10] 	# Household size for dwelling size categories
+		self.STOCK_RES			  = building_stock_stats[0][17] 	# Building stock statistics for residential
 		## Non-residential
-		self.U_NRES				  = building_stock_stats[0][11] # U-values for non-residential buildings
-		self.V_NRES				  = building_stock_stats[0][12]	# Air flow rate (ventilation losses) for non-residential
-		self.C_NRES				  = building_stock_stats[0][13]	# Thermal cap for non-residential buildings
-		self.CURRENT_REF_NRES	  = building_stock_stats[0][14][0] # Current percentage of residential refurbished buildings
-		self.MAX_REF_NRES	  	  = building_stock_stats[0][14][1] # Max percentage of residential refurbished buildings
-		self.STOCK_NRES			  = building_stock_stats[0][18] # Building stock statistics for non-residential
+		self.U_NRES			  = building_stock_stats[0][11]		# U-values for non-residential buildings
+		self.V_NRES			  = building_stock_stats[0][12]		# Air flow rate (ventilation losses) for non-residential
+		self.C_NRES			  = building_stock_stats[0][13]		# Thermal cap for non-residential buildings
+		self.CURRENT_REF_NRES	 	  = building_stock_stats[0][14][0] 	# Current percentage of residential refurbished buildings
+		self.MAX_REF_NRES	  	  = building_stock_stats[0][14][1] 	# Max percentage of residential refurbished buildings
+		self.STOCK_NRES			  = building_stock_stats[0][18] 	# Building stock statistics for non-residential
 		## Both		
-		self.TSET				  = building_stock_stats[0][15] # Target temperatures per building use
-		self.SCHEDULE			  = building_stock_stats[0][16]	# Active hours per building use
+		self.TSET			  = building_stock_stats[0][15] 	# Target temperatures per building use
+		self.SCHEDULE			  = building_stock_stats[0][16]		# Active hours per building use
 		
 		# Building thermal properties
-		self.Tb0_str			  = Tb0_str						# Initial building temperature as string: 'ambient' or 'Tset'
-		self.dTset				  = dTset						# Delta temperature (for Tset_min, Tset_max)
-		self.dT_per_hour		  = dT_per_hour					# Maximum dT allowed in building per hour [degC]
+		self.Tb0_str			  = Tb0_str				# Initial building temperature as string: 'ambient' or 'Tset'
+		self.dTset			  = dTset				# Delta temperature (for Tset_min, Tset_max)
+		self.dT_per_hour		  = dT_per_hour				# Maximum dT allowed in building per hour [degC]
 		
 		# Activity and occupancy in building
-		self._active_population	  = _active_population			# Consider active population for occupancy vector
-		self._workday_weekend	  = _workday_weekend			# Consider dif between workdays and weekends
-		self.sh_prob	  		  = sh_prob		   				# Probability vector of using space heating
+		self._active_population	 	  = _active_population			# Consider active population for occupancy vector
+		self._workday_weekend	 	  = _workday_weekend			# Consider dif between workdays and weekends
+		self.sh_prob	  		  = sh_prob		   		# Probability vector of using space heating
 		
 		# Heat gains
 		self._solar_gains	  	  = _solar_gains
-		self._internal_gains  	  = _internal_gains
+		self._internal_gains  	 	  = _internal_gains
 		
 		# DSM
-		self._night_set_back  	  = _night_set_back				# Share of buildings with nsb
-		self.schedule_nsb		  = schedule_nsb				# [start, end] of nsb in h
-		self.T_nsb		  		  = T_nsb						# Night set-back temperature in degC
-		self.power_reduction 	  = power_reduction				# Percentage of power reduced (as decimal)
+		self._night_set_back  	  	  = _night_set_back			# Share of buildings with nsb
+		self.schedule_nsb		  = schedule_nsb			# [start, end] of nsb in h
+		self.T_nsb		  	  = T_nsb				# Night set-back temperature in degC
+		self.power_reduction 	  	  = power_reduction			# Percentage of power reduced (as decimal)
 		
 		
 		# Hot water demand
 		# --------------------------------------------------
 		# Domestic hot water consumption
-		self.Tw					  = Tw							# Hot water temperature in [degC]
-		self.dhw_prob			  = dhw_prob					# Probabilities for dhw-loads
-		self.hw_tank_limit	   	  = hw_tank_limit 				# Hot water tank limit as perc (decimal)
-		self.hw_flow		      = hw_flow				    	# Flow to refill hot water tank in L/min
+		self.Tw				  = Tw					# Hot water temperature in [degC]
+		self.dhw_prob			  = dhw_prob				# Probabilities for dhw-loads
+		self.hw_tank_limit	   	  = hw_tank_limit 			# Hot water tank limit as perc (decimal)
+		self.hw_flow		      	  = hw_flow				# Flow to refill hot water tank in L/min
 		
 		# Seasonality
-		self.day_vector			  = day_vector					# Vector of days in simulation time frame
-		self.seasonal_vector	  = seasonal_vector				# Sinusoidal function for seasonal variations of DHW consumption
-		self.min_vector			  = min_vector					# Vector of simulation time steps in minutes
+		self.day_vector			  = day_vector				# Vector of days in simulation time frame
+		self.seasonal_vector	  	  = seasonal_vector			# Sinusoidal function for seasonal variations of DHW consumption
+		self.min_vector			  = min_vector				# Vector of simulation time steps in minutes
 
 		# Reporting
 		# --------------------------------------------------
-		self.plot				  = plot
-		self.save				  = save
-		self.debug				  = debug
+		self.plot			  = plot
+		self.save			  = save
+		self.debug			  = debug
 
 
 # Heating energy demand
@@ -157,37 +157,37 @@ class Building():
 		# Space heating demand
 		# --------------------------------------------------
 		self.my_space_heating_demand = SpaceHeatingDemand(self.dt_vector, self.resolution, self.building.heated_area,\
-										self.Tamb, self.I, self.Tb0, self.dT_per_hour, self.eta, self.thermal_inertia, \
-										self.building.U, self.building.V, self.building.C, self.building.Tset, self.dTset, \
-										self.activity_vector, self.occupancy_vector, self.sh_prob, \
-										self._solar_gains, self._internal_gains, \
-										self._night_set_back, self.schedule_nsb, self.T_nsb, self.power_reduction,
-										self.window_areas, [self.building.lat, self.building.lon], self.debug)
+									self.Tamb, self.I, self.Tb0, self.dT_per_hour, self.eta, self.thermal_inertia, \
+									self.building.U, self.building.V, self.building.C, self.building.Tset, self.dTset, \
+									self.activity_vector, self.occupancy_vector, self.sh_prob, \
+									self._solar_gains, self._internal_gains, \
+									self._night_set_back, self.schedule_nsb, self.T_nsb, self.power_reduction,
+									self.window_areas, [self.building.lat, self.building.lon], self.debug)
 		self.my_space_heating_demand.calculate()
 		
 		# Power [W]
-		self.space_heating_power	 = self.my_space_heating_demand.sh_power
-		self.solar_gains			 = self.my_space_heating_demand.solar_gains
-		self.internal_gains	 		 = self.my_space_heating_demand.internal_gains
+		self.space_heating_power	     = self.my_space_heating_demand.sh_power
+		self.solar_gains		     = self.my_space_heating_demand.solar_gains
+		self.internal_gains	 	     = self.my_space_heating_demand.internal_gains
 		
 		# Building temperature [degC]
-		self.Tb	 					 = self.my_space_heating_demand.Tb
+		self.Tb	 			     = self.my_space_heating_demand.Tb
 		
 		# Energy [Wh] -> ANNUAL
 		if self.number_of_typ_days < 365:
-			self.space_heating_energy 	 = self.calculate_annual_demand(self.space_heating_power)
-			self.solar_gains_energy 	 = self.calculate_annual_demand(self.solar_gains)
+			self.space_heating_energy    = self.calculate_annual_demand(self.space_heating_power)
+			self.solar_gains_energy      = self.calculate_annual_demand(self.solar_gains)
 			self.internal_gains_energy   = self.calculate_annual_demand(self.internal_gains)
 		
 		else:
 			self.space_heating_energy    = (self.space_heating_power.sum() * self.resolution * 1 / 60)
-			self.solar_gains_energy    	 = (self.solar_gains.sum() * self.resolution * 1 / 60)
+			self.solar_gains_energy      = (self.solar_gains.sum() * self.resolution * 1 / 60)
 			self.internal_gains_energy   = (self.internal_gains.sum() * self.resolution * 1 / 60)
 		
 		# Energy per (conditioned) area [kWh/m2]
-		self.space_heating_energy_per_area = (self.space_heating_energy / self.building.heated_area)
-		self.solar_gains_per_area 		   = (self.solar_gains_energy / self.building.heated_area)
-		self.internal_gains_per_area 	   = (self.internal_gains_energy / self.building.heated_area)
+		self.space_heating_energy_per_area   = (self.space_heating_energy / self.building.heated_area)
+		self.solar_gains_per_area 	     = (self.solar_gains_energy / self.building.heated_area)
+		self.internal_gains_per_area 	     = (self.internal_gains_energy / self.building.heated_area)
 		
 		result = [self.space_heating_energy, self.solar_gains_energy, self.internal_gains_energy,
 				  self.space_heating_energy_per_area, self.solar_gains_per_area, self.internal_gains_per_area]
@@ -296,7 +296,7 @@ class Building():
 
 		# initialize matrices
 		self.total_power       = np.zeros([self.nts])		# Total heat demand in W
-		self.total_energy	   = 0.							# Aggregated total heat demand in Wh
+		self.total_energy      = 0.				# Aggregated total heat demand in Wh
 		
 		# Space heating demand
 		if self._space_heating:
@@ -640,15 +640,15 @@ class Building():
 		"""
 		
 		# get size of FOOTPRINT matrix
-		rows 			= len(self.FOOTPRINT)		# construction year class
-		cols 			= len(self.FOOTPRINT[0])	# building type
+		rows 		= len(self.FOOTPRINT)			# construction year class
+		cols 		= len(self.FOOTPRINT[0])		# building type
 		
 		# initialize distance vectors
 		distance        = np.zeros(rows * cols)
-		distance_inv    = np.zeros(rows * cols)				# 1/d
-		row_col 	    = [[] for _ in range(rows * cols)]
-		t_distance_inv  = 0									# total inv distance, sum(1/d)
-		kkk 		    = 0									# typology counter
+		distance_inv    = np.zeros(rows * cols)			# 1/d
+		row_col 	= [[] for _ in range(rows * cols)]
+		t_distance_inv  = 0					# total inv distance, sum(1/d)
+		kkk 		= 0					# typology counter
 		
 		#
 		for iii in range(0, rows):
@@ -704,8 +704,8 @@ class Building():
 		cdf             = np.cumsum(self.STOCK_NRES) / np.sum(self.STOCK_NRES)
 
 		# Probabilistic categorization
-		rnd       	    = np.random.uniform(0, 1, 1)
-		index 			= np.argmax(rnd < cdf)
+		rnd       	= np.random.uniform(0, 1, 1)
+		index 		= np.argmax(rnd < cdf)
 		self.year_class = UrbanHeatPro.year_class_to_tuple(self.use, index)[0]
 		
 		# set size class to Nan
