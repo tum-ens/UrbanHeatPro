@@ -54,6 +54,14 @@ Each building is described with the following information:
         1	Terraced House (TH)
         2	Multi-family House (MFH)
         3	Apartment Block (AB)
+  <li>Refurbishment level (optional)</li>
+      Refurfishment level for all building elements from TABULA Typology as integer:
+        0	No refurbishment (Existing state)
+        1	Usual refurbishment
+        2	Advanced refurbishment
+  <li>Number of occupants (optional)</li>
+      Number of occupants living in the building
+        
 </ol>
 All columns are required, if no information is given, the cell value is taken as NaN.
 This input file should be located in the corresponding folder input/buildings
@@ -69,6 +77,6 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 
 ## Copyright
-Copyright (C) 2018-2019 Anahi Molar-Cruz
+Copyright (C) 2018-2021 Anahi Molar-Cruz
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details: http://www.gnu.org/licenses/.
