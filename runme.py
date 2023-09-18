@@ -48,24 +48,23 @@ import UrbanHeatPro.Classes as UrbanHeatPro
 #		 processes 	<int> 	number of processes to use for multiprocessing (parallelization)
 #		 chunk_size <int>	number of buildings in chunk to save
 #
-region				= 'Unterhaching'
-N 	 	   			= 1		  		
-resolution 			= 60
-(offset, length) 	= (0, 24*365)
-timesteps 			= range(offset, offset + length)	  		
-number_of_typ_days  = 365
+region = 'Unterhaching'
+N = 1
+resolution = 60
+(offset, length) = (0, 24 * 365)
+timesteps = range(offset, offset + length)
+number_of_typ_days = 365
 #
-sce_refurbishment   = None
-sce_Tamb		    = None
+sce_refurbishment = None
+sce_Tamb = None
 #
-processes			= 24
-chunk_size			= 2439
+processes = 24
+chunk_size = 2439
 ###
-SIMULATION			= [[region], 
-					   [N, resolution, timesteps, number_of_typ_days],
-					   [sce_refurbishment, sce_Tamb], 
-					   [processes, chunk_size]]
-
+SIMULATION = [[region],
+              [N, resolution, timesteps, number_of_typ_days],
+              [sce_refurbishment, sce_Tamb],
+              [processes, chunk_size]]
 
 # 2. CITY
 #	 2.1 Raw building data
@@ -84,22 +83,22 @@ SIMULATION			= [[region],
 #	 2.4 Base load
 #		 base_load 			<float>		minimum load at every time step in W.
 #
-#filename_buildings  = None
-filename_buildings  = 'buildings_Unterhaching.csv'
+# filename_buildings  = None
+filename_buildings = 'buildings_Unterhaching.csv'
 #
-filename_syn_city	= None
-#filename_syn_city	= 'SynCity_Unterhaching_0.csv'
+filename_syn_city = None
+# filename_syn_city	= 'SynCity_Unterhaching_0.csv'
 #
-connection_factor	= 1.
+connection_factor = 1.
 #
-_space_heating 		= True
-_hot_water			= True
-_energy_only		= False
+_space_heating = True
+_hot_water = True
+_energy_only = False
 #
-base_load			= 5. * 1e6
+base_load = 5. * 1e6
 ###
-CITY				= [[filename_buildings, filename_syn_city], [connection_factor],
-					   [_space_heating, _hot_water, _energy_only], [base_load]]
+CITY = [[filename_buildings, filename_syn_city], [connection_factor],
+        [_space_heating, _hot_water, _energy_only], [base_load]]
 
 # 3. SPACE HEATING DEMAND
 #	 3.1 Flags
@@ -126,34 +125,33 @@ CITY				= [[filename_buildings, filename_syn_city], [connection_factor],
 #		 schedule_nsb 			<list>		[start, end] of night set-back in hours
 #		 T_nsb 					<float>		night set-back temperature in degC
 # 		 power_reduction 		<float>		reduced power as decimal. Input power = 1 - power_reduction
-#_trans_losses 		= True
-#_ventilation_losses = True
-_internal_gains		= True
-_solar_gains		= True	
-_active_population  = True
-_workday_weekend	= True
-_monthly_sh_prob	= True
+# _trans_losses 		= True
+# _ventilation_losses = True
+_internal_gains = True
+_solar_gains = True
+_active_population = True
+_workday_weekend = True
+_monthly_sh_prob = True
 #
-Tb0_str				= 'Tset'
-dTset				= 0.			
+Tb0_str = 'Tset'
+dTset = 0.
 #
-eta					= 1.0
-dT_per_hour			= 0.1	
-thermal_inertia		= 0.4
+eta = 1.0
+dT_per_hour = 0.1
+thermal_inertia = 0.4
 #
-_night_set_back		= 0.5
-schedule_nsb	    = [23, 6]	
-T_nsb				= 19
-power_reduction		= 0
+_night_set_back = 0.5
+schedule_nsb = [23, 6]
+T_nsb = 19
+power_reduction = 0
 #
 ###
-SPACE_HEATING		= [[_internal_gains, _solar_gains, _active_population, _workday_weekend, _monthly_sh_prob],
-					   [None],
-					   [Tb0_str, dTset],
-					   [eta, dT_per_hour, thermal_inertia],
-					   [_night_set_back, schedule_nsb, T_nsb, power_reduction]]
+SPACE_HEATING = [[_internal_gains, _solar_gains, _active_population, _workday_weekend, _monthly_sh_prob],
+                 [None],
+                 [Tb0_str, dTset],
+                 [eta, dT_per_hour, thermal_inertia],
+                 [_night_set_back, schedule_nsb, T_nsb, power_reduction]]
 
-					   
 # 4. HOT WATER DEMAND
 #	 4.1 Hot water temperature
 #		 Tw 			<float> Hot water temperature in degC
@@ -161,32 +159,30 @@ SPACE_HEATING		= [[_internal_gains, _solar_gains, _active_population, _workday_w
 # 		 hw_tank_limit 	<float> Lower limit of hot water tank as decimal.
 #									Below this limit, hw tank is refilled.
 #		 hw_flow 		<float> Volume flow to refill hot water tank in L/min
-Tw				    = 60
+Tw = 60
 #
-hw_tank_limit		= 0.1
-hw_flow				= 15
+hw_tank_limit = 0.1
+hw_flow = 15
 ###
-HOT_WATER			= [[Tw], [hw_tank_limit, hw_flow]]
-
+HOT_WATER = [[Tw], [hw_tank_limit, hw_flow]]
 
 # 5. REPORTING
 # 	0 No results saved or plotted
 #	1 Results per simulation
 #   2 Results per building
 # 	3 Results per time step
-plot 				= 0
-save 				= 1
-debug 				= 1
+plot = 0
+save = 1
+debug = 1
 ###
-REPORTING			= [plot, save, debug]
+REPORTING = [plot, save, debug]
 
 # MAIN
 # --------------------------------------------------------------------------------
 if __name__ == '__main__':
-	
-	# Simulation name
-	NAME 	  = '{}_0'.format(region)
-							  
-	multiprocessing.freeze_support()
-	my_Simulation = UrbanHeatPro.Simulation(NAME, SIMULATION, CITY, SPACE_HEATING, HOT_WATER, REPORTING)
-	my_Simulation.run()
+    # Simulation name
+    NAME = '{}_0'.format(region)
+
+    multiprocessing.freeze_support()
+    my_Simulation = UrbanHeatPro.Simulation(NAME, SIMULATION, CITY, SPACE_HEATING, HOT_WATER, REPORTING)
+    my_Simulation.run()
