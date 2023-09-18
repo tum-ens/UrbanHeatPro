@@ -20,6 +20,14 @@ class Simulation:
     # --------------------------------------------------------------------------------
     def __init__(self, NAME, SIMULATION, CITY, SPACE_HEATING, HOT_WATER, REPORTING):
 
+        repository_root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
+        # UrbanHeatPro <-- this directory = repository_root_dir
+        # ├── input
+        # └── UrbanHeatPro
+        #     ├── Classes
+        #     │   └── Simulation.py
+        #     └── Functions
+
         # SIMULATION
         self.name = NAME  # Simulation name
         self.region = SIMULATION[0][0]  # Name of region/city/urban area
@@ -30,7 +38,7 @@ class Simulation:
         self.weights = np.ones(self.number_of_typ_days)  # Weight of typical days
         self.dt_vector = None  # Vector of time steps as datetime objects
         self.dt_vector_excel = None  # Vector of time steps as excel date
-        self.my_dir = os.getcwd()  # Current directory
+        self.my_dir = repository_root_dir  # Path to git repository root directory
         self.sce_refurbishment = SIMULATION[2][0]  # Name of scenario for refurbishment stats
         self.sce_Tamb = SIMULATION[2][1]  # Name of scenario for ambient temperature
         self.processes = SIMULATION[3][0]  # Number of parallel processes
