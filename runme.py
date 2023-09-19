@@ -5,7 +5,7 @@ A. Molar-Cruz @ TUM ENS
 
 import multiprocessing
 
-import UrbanHeatPro.Functions as UrbanHeatPro
+# import UrbanHeatPro.Functions as UrbanHeatPro
 import UrbanHeatPro.Classes as UrbanHeatPro
 
 # CONTENT
@@ -169,7 +169,7 @@ HOT_WATER = [[Tw], [hw_tank_limit, hw_flow]]
 # 5. REPORTING
 # 	0 No results saved or plotted
 #	1 Results per simulation
-#   2 Results per building
+#   2 Results per building --> as in the UHP_output_profile.csv example
 # 	3 Results per time step
 plot = 0
 save = 1
