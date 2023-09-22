@@ -4,12 +4,18 @@ A. Molar-Cruz @ TUM ENS
 """
 
 import multiprocessing
+import os
 
-from .Classes import Simulation
+import sorcery
+import yaml
+
+from UrbanHeatPro.Classes import Simulation
+from UrbanHeatPro.Functions.uhp_utils import access_config_or_default, nested_get
 
 
 # MAYBE convert to class?
-def run_uhp(selected_region='Unterhaching', buildings_use_filter=""):
+def run_uhp(selected_region: str = None, buildings_use_filter="",
+            settings_file="../settings/uhp_settings_example.yaml"):
     # CONTENT
     # ----------------------------------------------------------------------------------------------------
     # 1. SIMULATION
@@ -34,6 +40,12 @@ def run_uhp(selected_region='Unterhaching', buildings_use_filter=""):
 
     # INPUT DATA
     # ----------------------------------------------------------------------------------------------------
+    default_config_path = "../settings/uhp_default_settings.yaml"
+    with open(os.path.abspath(os.path.join(os.path.dirname(__file__), default_config_path)), 'r') as f:
+        default_config: dict = yaml.load(f, Loader=yaml.FullLoader)
+    with open(settings_file, 'r') as f:
+        config: dict = yaml.load(f, Loader=yaml.FullLoader)
+
     # 1. SIMULATION
     #	 1.1 General
     #		 region 	<str>	name of region/city/urban area
@@ -50,23 +62,36 @@ def run_uhp(selected_region='Unterhaching', buildings_use_filter=""):
     #		 processes 	<int> 	number of processes to use for multiprocessing (parallelization)
     #		 chunk_size <int>	number of buildings in chunk to save
     #
-    region = selected_region
-    N = 1
-    resolution = 60
-    (offset, length) = (0, 24 * 365)
+
+    region = selected_region if selected_region is not None else access_config_or_default(config, default_config,
+                                                                                          ["simulation", "region"])
+    N = access_config_or_default(config, default_config, ["simulation", "general", "N"])
+    resolution = access_config_or_default(config, default_config, ["simulation", "general", "resolution"])
+    offset = access_config_or_default(config, default_config, ["simulation", "general", "offset"])
+    length = access_config_or_default(config, default_config, ["simulation", "general", "length"])
     timesteps = range(offset, offset + length)
-    number_of_typ_days = 365
+    number_of_typ_days = access_config_or_default(config, default_config,
+                                                  ["simulation", "general", "number_of_typ_days"])
     #
-    sce_refurbishment = None
-    sce_Tamb = None
+    sce_refurbishment = access_config_or_default(config, default_config,
+                                                 ["simulation", "scenarios", "sce_refurbishment"])
+    sce_Tamb = access_config_or_default(config, default_config, ["simulation", "scenarios", "sce_Tamb"])
     #
-    processes = 24
-    chunk_size = 2439
+    tmp = nested_get(config, ["simulation", "multi_processing", "processes"], None)
+    processes = multiprocessing.cpu_count() if tmp is None else tmp
+    # number of lines in input file todo automate this parameter?
+    chunk_size = access_config_or_default(config, default_config, ["simulation", "multi_processing", "chunk_size"])
     ###
     SIMULATION = [[region],
                   [N, resolution, timesteps, number_of_typ_days],
                   [sce_refurbishment, sce_Tamb],
                   [processes, chunk_size]]
+
+    # to dict for yaml
+    general = sorcery.dict_of(N, resolution, offset, length, number_of_typ_days)
+    scenarios = sorcery.dict_of(sce_refurbishment, sce_Tamb)
+    multi_processing = sorcery.dict_of(processes, chunk_size)
+    simulation = sorcery.dict_of(region, general, scenarios, multi_processing)
 
     # 2. CITY
     # 	 2.1 Raw building data
@@ -87,24 +112,28 @@ def run_uhp(selected_region='Unterhaching', buildings_use_filter=""):
     #
 
     if buildings_use_filter == "":
-        filename_buildings = 'buildings_{}.csv'.format(selected_region)
+        filename_buildings = 'buildings_{}.csv'.format(region)
     else:
-        filename_buildings = 'buildings_{}.csv'.format(selected_region)
+        filename_buildings = 'buildings_{}.csv'.format(region)
     # filename_buildings  = None
     #
-    filename_syn_city = None
-    # filename_syn_city	= 'SynCity_Unterhaching_0.csv'
+    filename_syn_city = access_config_or_default(config, default_config, ["city", "building_data", "filename_syn_city"])
     #
-    connection_factor = 1.
+    connection_factor = access_config_or_default(config, default_config, ["city", "connection_factor"])
     #
-    _space_heating = True
-    _hot_water = True
-    _energy_only = False
+    _space_heating = access_config_or_default(config, default_config, ["city", "city_heat_demand", "_space_heating"])
+    _hot_water = access_config_or_default(config, default_config, ["city", "city_heat_demand", "_hot_water"])
+    _energy_only = access_config_or_default(config, default_config, ["city", "city_heat_demand", "_energy_only"])
     #
-    base_load = 5. * 1e6
+    base_load = access_config_or_default(config, default_config, ["city", "base_load"])
     ###
     CITY = [[filename_buildings, filename_syn_city], [connection_factor],
             [_space_heating, _hot_water, _energy_only], [base_load]]
+
+    # to dict for yaml
+    building_data = sorcery.dict_of(filename_buildings, filename_syn_city)
+    city_heat_demand = sorcery.dict_of(_space_heating, _hot_water, _energy_only)
+    city = sorcery.dict_of(building_data, connection_factor, city_heat_demand, base_load)
 
     # 3. SPACE HEATING DEMAND
     #	 3.1 Flags
@@ -133,30 +162,48 @@ def run_uhp(selected_region='Unterhaching', buildings_use_filter=""):
     # 		 power_reduction 		<float>		reduced power as decimal. Input power = 1 - power_reduction
     # _trans_losses 		= True
     # _ventilation_losses = True
-    _internal_gains = True
-    _solar_gains = True
-    _active_population = True
-    _workday_weekend = True
-    _monthly_sh_prob = True
+    _internal_gains = access_config_or_default(config, default_config,
+                                               ["space_heating_demand", "flags", "_internal_gains"])
+    _solar_gains = access_config_or_default(config, default_config, ["space_heating_demand", "flags", "_solar_gains"])
+    _active_population = access_config_or_default(config, default_config,
+                                                  ["space_heating_demand", "flags", "_active_population"])
+    _workday_weekend = access_config_or_default(config, default_config,
+                                                ["space_heating_demand", "flags", "_workday_weekend"])
+    _monthly_sh_prob = access_config_or_default(config, default_config,
+                                                ["space_heating_demand", "flags", "_monthly_sh_prob"])
     #
-    Tb0_str = 'Tset'
-    dTset = 0.
+    Tb0_str = access_config_or_default(config, default_config, ["space_heating_demand", "temperature", "Tb0_str"])
+    dTset = access_config_or_default(config, default_config, ["space_heating_demand", "temperature", "dTset"])
     #
-    eta = 1.0
-    dT_per_hour = 0.1
-    thermal_inertia = 0.4
+    eta = access_config_or_default(config, default_config, ["space_heating_demand", "heating_system", "eta"])
+    dT_per_hour = access_config_or_default(config, default_config,
+                                           ["space_heating_demand", "heating_system", "dT_per_hour"])
+    thermal_inertia = access_config_or_default(config, default_config,
+                                               ["space_heating_demand", "heating_system", "thermal_inertia"])
     #
-    _night_set_back = 0.5
-    schedule_nsb = [23, 6]
-    T_nsb = 19
-    power_reduction = 0
+    _night_set_back = access_config_or_default(config, default_config,
+                                               ["space_heating_demand", "demand_side_management", "_night_set_back"])
+    schedule_nsb = access_config_or_default(config, default_config,
+                                            ["space_heating_demand", "demand_side_management", "schedule_nsb"])
+    T_nsb = access_config_or_default(config, default_config,
+                                     ["space_heating_demand", "demand_side_management", "T_nsb"])
+    power_reduction = access_config_or_default(config, default_config,
+                                               ["space_heating_demand", "demand_side_management", "power_reduction"])
     #
     ###
     SPACE_HEATING = [[_internal_gains, _solar_gains, _active_population, _workday_weekend, _monthly_sh_prob],
-                     [None],
+                     [None],  # TODO !!! what is here?
                      [Tb0_str, dTset],
                      [eta, dT_per_hour, thermal_inertia],
                      [_night_set_back, schedule_nsb, T_nsb, power_reduction]]
+
+    # to dict for yaml
+    flags = sorcery.dict_of(_internal_gains, _solar_gains, _active_population, _workday_weekend, _monthly_sh_prob)
+    empty = {"empty": None}
+    temperature = sorcery.dict_of(Tb0_str, dTset)
+    heating_system = sorcery.dict_of(eta, dT_per_hour, thermal_inertia)
+    demand_side_management = sorcery.dict_of(_night_set_back, schedule_nsb, T_nsb, power_reduction)
+    space_heating_demand = sorcery.dict_of(flags, empty, temperature, heating_system, demand_side_management)
 
     # 4. HOT WATER DEMAND
     #	 4.1 Hot water temperature
@@ -165,29 +212,44 @@ def run_uhp(selected_region='Unterhaching', buildings_use_filter=""):
     # 		 hw_tank_limit 	<float> Lower limit of hot water tank as decimal.
     #									Below this limit, hw tank is refilled.
     #		 hw_flow 		<float> Volume flow to refill hot water tank in L/min
-    Tw = 60
+    Tw = access_config_or_default(config, default_config, ["hot_water_demand", "Tw"])
     #
-    hw_tank_limit = 0.1
-    hw_flow = 15
+    hw_tank_limit = access_config_or_default(config, default_config,
+                                             ["hot_water_demand", "hot_water_tank", "hw_tank_limit"])
+    hw_flow = access_config_or_default(config, default_config, ["hot_water_demand", "hot_water_tank", "hw_flow"])
     ###
     HOT_WATER = [[Tw], [hw_tank_limit, hw_flow]]
+
+    # to dict for yaml
+    hot_water_tank = sorcery.dict_of(hw_tank_limit, hw_flow)
+    hot_water_demand = sorcery.dict_of(Tw, hot_water_tank)
 
     # 5. REPORTING
     # 	0 No results saved or plotted
     #   1 Results per simulation
     #   2 Results per building --> as in the UHP_output_profile.csv example
     # 	3 Results per time step
-    plot = 0
-    save = 1
-    debug = 1
+    plot = access_config_or_default(config, default_config, ["reporting", "plot"])
+    save = access_config_or_default(config, default_config, ["reporting", "save"])
+    debug = access_config_or_default(config, default_config, ["reporting", "debug"])
     ###
     REPORTING = [plot, save, debug]
 
+    # to dict for yaml
+    reporting = sorcery.dict_of(plot, save, debug)
+
     # MAIN
     # --------------------------------------------------------------------------------
+
+    sim_dict = sorcery.dict_of(simulation, city, space_heating_demand, hot_water_demand, reporting)
+    used_config_path = '../settings/uhp_settings_currently_used.yaml'
+    with open(used_config_path, 'w') as f:
+        yaml.dump(sim_dict, f, sort_keys=False)
+        print("Loaded and used configuration for the current simulation run saved at", used_config_path)
+
+    # ----- Run the simulation with the given settings
     # Simulation name
     NAME = '{}_0'.format(region)
-
     multiprocessing.freeze_support()
     my_Simulation = Simulation(NAME, SIMULATION, CITY, SPACE_HEATING, HOT_WATER, REPORTING)
     my_Simulation.run()

@@ -1,0 +1,105 @@
+simulation:
+    # <str>	        name of region/city/urban area or post code (PLZ)
+    region: 'Unterhaching'  # can be null
+    general:
+        # <int>	    number of simulation runs. One run calculates the heat demand for the whole region.
+        N: 1
+        # <int> 	temporal resolution [min]
+        resolution: 60
+        # <int> 	initial time step
+        offset: 0
+        # <int> 	number of time steps to simulate
+        length: 8760
+        # <int>     number of typical days to simulate
+        number_of_typ_days: 365
+    scenarios:
+        # <str>     Name of refurbishment scenario or None = null
+        sce_refurbishment: null   # can be null
+        # <str>     Name of ambient temperature scenario or None = null
+        sce_Tamb: null   # can be null
+    multi_processing:
+        # <int> 	number of processes to use for multiprocessing (parallelization).
+        #           If null: will be derived from available CPU cores
+        processes: null
+        # <int>	    number of buildings in chunk to save
+        chunk_size: 1000
+city:
+    building_data:
+        # <str>		name of csv file with raw building data or None = null, derived as 'buildings_{region}.csv'
+        filename_buildings: buildings_Unterhaching.csv
+        # <str>		name of csv file with synthetic city or None = null
+        filename_syn_city: null   # can be null, will be automatically generated
+    # <float>		share of buildings connected to the network (as decimal)
+    connection_factor: 1.0
+    city_heat_demand:
+        # <boolean>	specifies if space heating demand is calculated.
+        #           If false, heat losses and gains are also false.
+        _space_heating: true
+        # <boolean>	specifies if hot water demand is calculated.
+        _hot_water: true
+        # <boolean>	specifies if the focus is only on the aggregated heating energy
+        # 			demand and not on the time series. If True, the hot water demand is
+        #			calculated/added per day and not per time step.
+        _energy_only: false
+    # <float>		minimum load at every time step in W.
+    base_load: 5000000.0
+space_heating_demand:
+    flags:
+        # <boolean>	specifies if transmission losses (wall, windows, roof and floor)
+        #           are calculated.
+        _internal_gains: true
+        # <boolean>	specifies if solar losses are calculated.
+        _solar_gains: true
+        # <boolean>	specifies if statistics for active population are used to create
+        #           synthetic population profiles (occupancy)
+        _active_population: true
+        # <boolean> specifies if workdays and weekends are differentiated.
+        #           Use only when full year is simulated.
+        _workday_weekend: true
+        # <boolean>	specifies if monthly probability of using heating is used
+        _monthly_sh_prob: true
+    empty:
+         # placeholder should be null
+        empty: null
+    temperature:
+        # <str>		Building initial temperature as string 'Tset' or 'Tamb'.
+        Tb0_str: Tset
+        # <float>	Temperature difference to modify Tset_min, Tset_max in degC
+        dTset: 0.0
+    heating_system:
+        # <float>	heating system efficiency
+        eta: 1.0
+        # <float>	maximum temperature difference allowed in the building in degC / h.
+        dT_per_hour: 0.1
+        # <float>	weight of the delivered power from previous time step.
+        #			i.e. how much can the output power change with respect to the previous time step?
+        thermal_inertia: 0.4
+    demand_side_management:
+        # <float>	share of buildings with night set-back
+        _night_set_back: 0.5
+        # <list>	[start, end] of night set-back in hours
+        schedule_nsb:
+        - 23
+        - 6
+        # <float>   night set-back temperature in degC
+        T_nsb: 19
+        # <float>   reduced power as decimal. Input power = 1 - power_reduction
+        power_reduction: 0
+hot_water_demand:
+    # <float>       Hot water temperature in degC
+    Tw: 60
+    hot_water_tank:
+        # <float>   Lower limit of hot water tank as decimal.
+        #           Below this limit, hw tank is refilled.
+        hw_tank_limit: 0.1
+        # <float>   Volume flow to refill hot water tank in L/min
+        hw_flow: 15
+reporting:
+    # Reporting levels
+    # 	0 No results saved or plotted
+    #   1 Results per simulation
+    #   2 Results per building --> as in the UHP_output_profile.csv example
+    # 	3 Results per time step
+    plot: 0
+    save: 1
+    debug: 1
