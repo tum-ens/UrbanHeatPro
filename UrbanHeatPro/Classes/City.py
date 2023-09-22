@@ -546,8 +546,8 @@ class City:
         feedProc.start()
         for p in calcProc:
             p.start()
-        # if (self.debug >= 1):
-        # print('\n      Saving to file...')
+        if self.debug >= 1:
+            print('\n      Saving to file...')
         writeProc.start()
 
         ## join
@@ -661,7 +661,7 @@ class City:
 
             ## save results per timestep
             if self.save == 3:
-                if hot_water:
+                if self._hot_water:
                     my_building.save_dhw_debug_csv()
 
             # Plot
