@@ -18,6 +18,8 @@ setup(
         "scipy",
         "pandas",
         "matplotlib",
-        "geopandas"
+        "geopandas",
+        "sorcery",
+        "PyYAML",
     ],
 )
