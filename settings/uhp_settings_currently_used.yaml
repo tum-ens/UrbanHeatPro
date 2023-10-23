@@ -1,0 +1,56 @@
+simulation:
+  region: Unterhaching
+  general:
+    N: 1
+    resolution: 60
+    offset: 0
+    length: 8760
+    number_of_typ_days: 365
+  scenarios:
+    sce_refurbishment: null
+    sce_Tamb: null
+  multi_processing:
+    processes: 8
+    chunk_size: 1000
+city:
+  building_data:
+    filename_buildings: buildings_Unterhaching.csv
+    filename_syn_city: null
+  connection_factor: 1.0
+  city_heat_demand:
+    _space_heating: true
+    _hot_water: true
+    _energy_only: false
+  base_load: 5000000.0
+space_heating_demand:
+  flags:
+    _internal_gains: true
+    _solar_gains: true
+    _active_population: true
+    _workday_weekend: true
+    _monthly_sh_prob: true
+  empty:
+    empty: null
+  temperature:
+    Tb0_str: Tset
+    dTset: 0.0
+  heating_system:
+    eta: 1.0
+    dT_per_hour: 0.1
+    thermal_inertia: 0.4
+  demand_side_management:
+    _night_set_back: 0.5
+    schedule_nsb:
+    - 23
+    - 6
+    T_nsb: 19
+    power_reduction: 0
+hot_water_demand:
+  Tw: 60
+  hot_water_tank:
+    hw_tank_limit: 0.1
+    hw_flow: 15
+reporting:
+  plot: 0
+  save: 1
+  debug: 1
