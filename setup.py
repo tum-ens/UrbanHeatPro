@@ -7,7 +7,7 @@ setup(
     url='https://github.com/tum-ens/UrbanHeatPro',
     license=' GPL-3.0',
     author='TUM ENS',
-    author_email='',
+    author_email='vera.kowalczuk@tum.de',
     description='A bottom-up model for the simulation of heat demand profiles of urban areas ',
     classifiers=[
             "Programming Language :: Python :: 3.9",
@@ -20,6 +20,7 @@ setup(
         "matplotlib",
         "geopandas",
         "sorcery",
+        "setuptools",
         "PyYAML",
     ],
 )

@@ -20,7 +20,7 @@ class Simulation:
     # --------------------------------------------------------------------------------
     def __init__(self, NAME, SIMULATION, CITY, SPACE_HEATING, HOT_WATER, REPORTING):
 
-        repository_root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
+        repository_root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
         # UrbanHeatPro <-- this directory = repository_root_dir
         # ├── input
         # └── UrbanHeatPro
@@ -111,6 +111,7 @@ class Simulation:
         self.plot = REPORTING[0]  # Plot level  [0, 1, 2]
         self.save = REPORTING[1]  # Save level  [0, 1, 2]
         self.debug = REPORTING[2]  # Debug level [0, 1, 2]
+        self.result_dir = REPORTING[3] if REPORTING[3] is not None else self.result_dir
 
     #
     def run(self, include_date=True):
@@ -715,7 +716,11 @@ class Simulation:
         Returns path as string.
         """
 
-        result_dir_ = self.my_dir + '/results'
+        if self.result_dir is not None:
+            result_dir_ = self.result_dir
+        else:
+            result_dir_ = self.my_dir + '/results'
+
         if include_date:
             now = datetime.now().strftime('%d%m%Y %H%M')
             self.result_dir = os.path.join(result_dir_, '{} - {}'.format(now, self.name))
