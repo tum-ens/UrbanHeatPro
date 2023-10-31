@@ -104,3 +104,5 @@ reporting:
     plot: 0
     save: 1
     debug: 1
+    # <str>		path to the results directory or None = null
+    results: null

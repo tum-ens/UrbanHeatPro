@@ -103,3 +103,4 @@ reporting:
     plot: 0
     save: 1
     debug: 1
+    results_dir: null

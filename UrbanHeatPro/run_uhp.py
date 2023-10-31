@@ -14,8 +14,8 @@ from UrbanHeatPro.Functions.uhp_utils import access_config_or_default, nested_ge
 
 
 # MAYBE convert to class?
-def run_uhp(selected_region: str = None, buildings_use_filter="",
-            settings_file="../settings/uhp_settings_example.yaml"):
+def run_uhp(selected_region: str = None, simulation_name: str = None, buildings_use_filter="",
+            settings_file="../settings/uhp_settings_example.yaml", result_dir=None):
     # CONTENT
     # ----------------------------------------------------------------------------------------------------
     # 1. SIMULATION
@@ -114,7 +114,7 @@ def run_uhp(selected_region: str = None, buildings_use_filter="",
     if buildings_use_filter == "":
         filename_buildings = 'buildings_{}.csv'.format(region)
     else:
-        filename_buildings = 'buildings_{}.csv'.format(region)
+        filename_buildings = 'buildings_{}_{}.csv'.format(region, buildings_use_filter)
     # filename_buildings  = None
     #
     filename_syn_city = access_config_or_default(config, default_config, ["city", "building_data", "filename_syn_city"])
@@ -232,11 +232,14 @@ def run_uhp(selected_region: str = None, buildings_use_filter="",
     plot = access_config_or_default(config, default_config, ["reporting", "plot"])
     save = access_config_or_default(config, default_config, ["reporting", "save"])
     debug = access_config_or_default(config, default_config, ["reporting", "debug"])
+
+    result_dir = access_config_or_default(config, default_config, ["reporting", "result_dir"]) if result_dir is None else result_dir
+
     ###
-    REPORTING = [plot, save, debug]
+    REPORTING = [plot, save, debug, result_dir]
 
     # to dict for yaml
-    reporting = sorcery.dict_of(plot, save, debug)
+    reporting = sorcery.dict_of(plot, save, debug, result_dir)
 
     # MAIN
     # --------------------------------------------------------------------------------
@@ -249,7 +252,7 @@ def run_uhp(selected_region: str = None, buildings_use_filter="",
 
     # ----- Run the simulation with the given settings
     # Simulation name
-    NAME = '{}_0'.format(region)
+    NAME = simulation_name if simulation_name not in [None, ''] else '{}_0'.format(region)
     multiprocessing.freeze_support()
     my_Simulation = Simulation(NAME, SIMULATION, CITY, SPACE_HEATING, HOT_WATER, REPORTING)
     my_Simulation.run()
