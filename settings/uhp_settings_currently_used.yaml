@@ -1,5 +1,5 @@
 simulation:
-  region: Unterhaching
+  region: '91126'
   general:
     N: 1
     resolution: 60
@@ -11,10 +11,10 @@ simulation:
     sce_Tamb: null
   multi_processing:
     processes: 8
-    chunk_size: 1000
+    chunk_size: 5
 city:
   building_data:
-    filename_buildings: buildings_Unterhaching.csv
+    filename_buildings: buildings_91126.csv
     filename_syn_city: null
   connection_factor: 1.0
   city_heat_demand:
@@ -52,5 +52,6 @@ hot_water_demand:
     hw_flow: 15
 reporting:
   plot: 0
-  save: 1
+  save: 2
   debug: 1
+  result_dir: null

@@ -245,7 +245,7 @@ def run_uhp(selected_region: str = None, simulation_name: str = None, buildings_
     # --------------------------------------------------------------------------------
 
     sim_dict = sorcery.dict_of(simulation, city, space_heating_demand, hot_water_demand, reporting)
-    used_config_path = '../settings/uhp_settings_currently_used.yaml'
+    used_config_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../settings/uhp_settings_currently_used.yaml'))
     with open(used_config_path, 'w') as f:
         yaml.dump(sim_dict, f, sort_keys=False)
         print("Loaded and used configuration for the current simulation run saved at", used_config_path)
