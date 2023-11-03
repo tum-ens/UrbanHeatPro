@@ -1639,8 +1639,8 @@ class Building:
                                   self.total_power_delayed]).transpose()
 
         filename = '{}/HeatDemand_{}_{}_{}_{}.csv'.format(self.result_dir,
-                                                          self.building.use, self.building.year_class,
-                                                          self.building.size_class, self.building.bid)
+                                                          int(self.building.use), int(self.building.year_class),
+                                                          int(self.building.size_class), int(self.building.bid))
 
         # Column names
         with open(filename, 'w') as text_file:
