@@ -391,13 +391,8 @@ class City:
                 # get from Queue
                 (result, iii) = writerQueue.get(block=True, timeout=20)
 
-                # add building to matrix to save
-                if self.counter_syncity < self.chunk_size:
-                    self.b_to_save_syncity[self.counter_syncity, :] = result
-                    self.counter_syncity += 1
-
                 # save results once chunk size is reached
-                else:
+                if self.counter_syncity >= self.chunk_size:
 
                     # save
                     f = open(filename, 'ab')
@@ -425,6 +420,10 @@ class City:
                         sys.stdout.write("\n            Saving:        [%-20s] %d%%" % ('|' * int(20 * i), 100 * i))
                         sys.stdout.flush()
 
+                # always add building to matrix to save
+                self.b_to_save_syncity[self.counter_syncity, :] = result
+                self.counter_syncity += 1
+
             except Exception as e:
                 # print('>>> Error: {}'.format(e))
 
@@ -439,7 +438,6 @@ class City:
                        '%.2f', '%.2f', '%.2f', '%.2f',
                        '%d', '%d', '%d',
                        '%.2f', '%.2f']
-
                 # drop zero rows
                 self.b_to_save_syncity = self.b_to_save_syncity[~np.all(self.b_to_save_syncity == 0, axis=1)]
                 np.savetxt(f, self.b_to_save_syncity, delimiter=';', fmt=fmt)
@@ -727,13 +725,8 @@ class City:
                 # get from Queue
                 (result, iii) = writerQueue.get(block=True, timeout=20)
 
-                # add building to matrix to save
-                if self.counter_heat < self.chunk_size:
-                    self.b_to_save_heat[self.counter_heat, :] = result
-                    self.counter_heat += 1
-
                 # save results once chunk size is reached
-                else:
+                if self.counter_heat >= self.chunk_size:
                     # save
                     f = open(filename, 'ab')
                     fmt = ['%d', '%.2f', '%d', '%d',
@@ -763,6 +756,10 @@ class City:
                         i = float((iii + 1) / len(self.buildings))
                         sys.stdout.write("\n            Saving:        [%-20s] %d%%" % ('|' * int(20 * i), 100 * i))
                         sys.stdout.flush()
+
+                # always add building to matrix to save
+                self.b_to_save_heat[self.counter_heat, :] = result
+                self.counter_heat += 1
 
             except Exception as e:
                 # print('>>> Error: {}'.format(e))
