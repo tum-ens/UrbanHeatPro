@@ -14,7 +14,9 @@ A Bottom-up model for the simulation of heat demand profiles of urban areas
 
 
 ## Requirements
-Python 3.6 (installation with Anaconda recommended)
+Python 3.9 (installation with Anaconda recommended)
+
+Use the provided requirements.txt or the setup.py to install the dependencies via pip.
 
 
 ## Input file (csv)
@@ -47,6 +49,7 @@ Each building is described with the following information:
           <li>7	1984 - 1994</li>
           <li>8	1995 - 2001</li>
           <li>9	2002 - 2009</li>
+          <li>10 >2009</li>
         </ul>
   <li>Building type (optional)</li>
       Building type from TABULA Typology as integer:
@@ -68,8 +71,27 @@ This input file should be located in the corresponding folder input/buildings
 
 
 ## Using UrbanHeatPro
-To run the model with the given input data, change the desired information in the runme.py file and run this file in the command line:
+### From the script
+To run the model with the given input data, change the desired information in the runme.py file, create a settings 
+file as in the given example and run this file in the command line:
 >> python runme.py
+
+### As a library
+Alternatively the model can be used as a library.
+The `run_uhp` function in the `run_uhp.py` module is the entrypoint for running the model.
+
+### File structure & settings
+The expects the input files in the input/ directory.
+Per default the results are written to the results/ directory. A different result directory can be defined in the 
+settings file or as a parameter of `run_uhp()`.
+
+The example and default settings files are in the settings/ directory.
+Settings are provided to the module as a configuration file in the yaml format. An example of the expected structure 
+can be seen in the example settings file settings/uhp_settings_example.yaml. All possible settings are also shortly 
+described in this file.
+
+Note: The default settings file should not be moved or modified as it is needed in case no other settings are given. 
+
 
 
 ## Contributing
