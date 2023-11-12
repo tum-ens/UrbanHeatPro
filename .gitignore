@@ -162,3 +162,6 @@ cython_debug/
 # project specific
 /results/
 /input/
+
+# ignore changes in this file
+settings/uhp_settings_currently_used.yaml
