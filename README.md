@@ -13,11 +13,16 @@ A Bottom-up model for the simulation of heat demand profiles of urban areas
   - By default, the model operates on an hourly time steps. However, the temporal resolution is configurable.
 
 
-## Requirements
+## Requirements & Installation
 Python 3.9 (installation with Anaconda recommended)
 
 Use the provided requirements.txt or the setup.py to install the dependencies via pip.
 
+Ideally install the project as editable.
+Inside the directory of the repository for UrbanHeatPro run:
+> pip install -e .
+
+This allows to use the folder structure expected by UrbanHeatPro.
 
 ## Input file (csv)
 Each building is described with the following information:
@@ -80,7 +85,7 @@ file as in the given example and run this file in the command line:
 Alternatively the model can be used as a library.
 The `run_uhp` function in the `run_uhp.py` module is the entrypoint for running the model.
 
-### File structure & settings
+### Folder structure & settings
 The expects the input files in the input/ directory.
 Per default the results are written to the results/ directory. A different result directory can be defined in the 
 settings file or as a parameter of `run_uhp()`.
