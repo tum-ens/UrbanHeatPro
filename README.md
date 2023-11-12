@@ -14,9 +14,20 @@ A Bottom-up model for the simulation of heat demand profiles of urban areas
 
 
 ## Requirements & Installation
-Python 3.9 (installation with Anaconda recommended)
+
+### System requirements
+
+The project uses POSIX paths as is standard in UNIX systems such as Linux or MacOS. On Windows machines using the WSL is might mitigate possible issues.
+
+
+### Python requirements & dependencies
+Python 3.9 or higher (installation with Anaconda recommended).
+
+The latest version was tested with Python 3.10.
 
 Use the provided requirements.txt or the setup.py to install the dependencies via pip.
+
+### Installation
 
 Ideally install the project as editable.
 Inside the directory of the repository for UrbanHeatPro run:
@@ -24,7 +35,22 @@ Inside the directory of the repository for UrbanHeatPro run:
 
 This allows to use the folder structure expected by UrbanHeatPro.
 
-## Input file (csv)
+## Folder structure & settings
+The expects the input files in the input/ directory.
+Per default the results are written to the results/ directory. A different result directory can be defined in the 
+settings file or as a parameter of `run_uhp()`.
+
+The example and default settings files are in the settings/ directory.
+Settings are provided to the module as a configuration file in the yaml format. An example of the expected structure 
+can be seen in the example settings file settings/uhp_settings_example.yaml. All possible settings are also shortly 
+described in this file.
+
+Note: The default settings file should not be moved or modified as it is needed in case no other settings are given.
+
+## Input files (csv)
+An example for the expected input data is given for the region Unterhaching. 
+
+### Buildings
 Each building is described with the following information:
 <ol>
   <li>Area (required)</li>
@@ -71,32 +97,23 @@ Each building is described with the following information:
       Number of occupants living in the building
         
 </ol>
-All columns are required, if no information is given, the cell value is taken as NaN.
-This input file should be located in the corresponding folder input/buildings
 
+All columns are required, if no information is given, the cell value is taken as NaN.
+This input file should be located in the corresponding folder `input/Buildings`.
+
+### Regional Data
+In addition to the buildings to be modeled, regional data is needed. This data should be placed in the folder `input/Regional Data`.
+Each region has its own directory of regional data, e.g. `input/Regional Data/Unterhaching`.
 
 ## Using UrbanHeatPro
-### From the script
+### From the entry script
 To run the model with the given input data, change the desired information in the runme.py file, create a settings 
 file as in the given example and run this file in the command line:
->> python runme.py
+> python runme.py
 
 ### As a library
 Alternatively the model can be used as a library.
 The `run_uhp` function in the `run_uhp.py` module is the entrypoint for running the model.
-
-### Folder structure & settings
-The expects the input files in the input/ directory.
-Per default the results are written to the results/ directory. A different result directory can be defined in the 
-settings file or as a parameter of `run_uhp()`.
-
-The example and default settings files are in the settings/ directory.
-Settings are provided to the module as a configuration file in the yaml format. An example of the expected structure 
-can be seen in the example settings file settings/uhp_settings_example.yaml. All possible settings are also shortly 
-described in this file.
-
-Note: The default settings file should not be moved or modified as it is needed in case no other settings are given. 
-
 
 
 ## Contributing
