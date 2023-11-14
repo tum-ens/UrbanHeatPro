@@ -90,9 +90,9 @@ Each building is described with the following information:
         3	Apartment Block (AB)
   <li>Refurbishment level (optional)</li>
       Refurfishment level for all building elements from TABULA Typology as integer:
-        0	No refurbishment (Existing state)
-        1	Usual refurbishment
-        2	Advanced refurbishment
+        1	No refurbishment (Existing state)
+        2	Usual refurbishment
+        3	Advanced refurbishment
   <li>Number of occupants (optional)</li>
       Number of occupants living in the building
         
