@@ -7,6 +7,10 @@ A. Molar-Cruz @ TUM ENS
 # --------------------------------------------------------------------------------
 def building_use_to_tuple(use):
     """
+    Map building use to tuple (use_int, use_str)
+    
+    :param use: building use as string or integer
+    :returns: tuple (use_int, use_str)
     """
     if type(use) == str:
         USE = {'commercial': 0, 'industrial': 1, 'public': 2, 'residential': 3}
@@ -19,6 +23,11 @@ def building_use_to_tuple(use):
 # --------------------------------------------------------------------------------
 def year_class_to_tuple(use_int, year_class_int):
     """
+    Map year class to tuple (year_class_int, year_class_str)
+    
+    :param use_int: building use as integer
+    :param year_class_int: year class as integer
+    :returns: tuple (year_class_int, year_class_str)
     """
     if use_int == 3:  # residential
         YEAR_CLASS = ['<1859',
@@ -45,6 +54,11 @@ def year_class_to_tuple(use_int, year_class_int):
 # --------------------------------------------------------------------------------
 def size_class_to_tuple(use_int, size_class_int):
     """
+    Map size class to tuple (size_class_int, size_class_str)
+    
+    :param use_int: building use as integer
+    :param size_class_int: size class as integer
+    :returns: tuple (size_class_int, size_class_str)
     """
     if use_int == 3:  # residential
         SIZE_CLASS = ['SFH', 'TH', 'MFH', 'AB']

@@ -35,6 +35,47 @@ class Building:
                  day_vector, seasonal_vector, min_vector,
                  # Results
                  result_dir, plot, save, debug):
+        """
+        Initialize the Building object with the given parameters.
+
+        Args:
+            b: Building dataframe
+            building_stock_stats: Building stock statistics
+            dt_vectors: Vector of time steps as datetime objects
+            resolution: Temporal resolution in min
+            number_of_typ_days: Number of typical days
+            weights: Weights of typical days
+            Tamb: Ambient temperature vector in degC
+            I: Solar radiation vector in W/m2 [I_Gh, I_Dh, I_ex, hs]
+            _space_heating: Calculate space heating demand?
+            _hot_water: Calculate hot water demand?
+            _energy_only: Calculate only aggregated demand?
+            Tb0_str: Initial building temperature as string: 'ambient' or 'Tset'
+            dTset: Delta temperature (for Tset_min, Tset_max)
+            dT_per_hour: Maximum dT allowed in building per hour [degC]
+            eta: Heating process efficiency
+            thermal_inertia: Thermal inertia of the heating system
+            _active_population: Consider active population for occupancy vector
+            _workday_weekend: Consider dif between workdays and weekends
+            sh_prob: Probability vector of using space heating
+            _solar_gains: Consider solar gains?
+            _internal_gains: Consider internal gains?
+            _night_set_back: Share of buildings with nsb
+            schedule_nsb: [start, end] of nsb in h
+            T_nsb: Night set-back temperature in degC
+            power_reduction: Percentage of power reduced (as decimal)
+            Tw: Hot water temperature in [degC]
+            dhw_prob: Probabilities for dhw-loads
+            hw_tank_limit: Hot water tank limit as perc (decimal)
+            hw_flow: Flow to refill hot water tank in L/min
+            day_vector: Vector of days in simulation time frame
+            seasonal_vector: Sinusoidal function for seasonal variations of DHW consumption
+            min_vector: Vector of simulation time steps in minutes
+            result_dir: Directory where results are stored
+            plot: Whether to plot the results or not
+            save: Whether to save the results or not
+            debug: Whether to print debug information or not
+        """
 
         # General data
         # --------------------------------------------------
@@ -205,13 +246,14 @@ class Building:
     #
     def calculate_hot_water_demand(self, save_debug=False):
         """
-        Calculates building hot water demand as timeseries [W] and [m3] and aggregated value [Wh]
-        Only for residential buildings
+        Calculates building hot water demand as timeseries [W] and [m3] and aggregated value [Wh].
 
-        args:
-            save_debug	<boolean>	Is debug file saved?
+        Only for residential buildings.
 
-        returns:
+        Args:
+            save_debug (boolean):	Is debug file saved?
+
+        Returns:
             self.hot_water_m3
             self.hot_water_power
             self.dhw_energy
@@ -576,9 +618,9 @@ class Building:
         (MAX_REF_RES and MAX_REF_NRES).
 
         Refurbishment levels according to TABULA typology:
-            1	National minimum requirement
-            2	Improved standard
-            3	Ambitious standard
+            - 1	National minimum requirement
+            - 2	Improved standard
+            - 3	Ambitious standard
         """
 
         # Parameters
@@ -701,12 +743,19 @@ class Building:
         Probabilistic categorization of non-residential buildings according to the
         building statistics and the following construction year classes:
 
-        int	construction year class
-         0	 < 1918
-         1	 1919 - 1976
-         2	 1977 - 1983
-         3	 1984 - 1994
-         4	 > 1995
+        +-----+-------------------------+
+        | int | construction year class |
+        +=====+=========================+
+        | 0   | < 1918                  |
+        +-----+-------------------------+
+        | 1   | 1919 - 1976             |
+        +-----+-------------------------+
+        | 2   | 1977 - 1983             |
+        +-----+-------------------------+
+        | 3   | 1984 - 1994             |
+        +-----+-------------------------+
+        | 4   | > 1995                  |
+        +-----+-------------------------+
          
          >> Source for building stock missing
         """
@@ -727,10 +776,11 @@ class Building:
         """
         Computes the refurbishment level for the different building elements
         [roof, wall, floor, window] according to the current refurbishment statistics.
+
         Refurbishment levels according to TABULA typology:
-            1	National minimum requirement
-            2	Improved standard
-            3	Ambitious standard
+            - 1	National minimum requirement
+            - 2	Improved standard
+            - 3	Ambitious standard
         """
 
         # check current share of refurbished buildings for building size and year class
@@ -750,10 +800,11 @@ class Building:
         """
         Computes the refurbishment level for the different building components
         [roof, wall, floor, window] according to the refurbishment statistics.
+
         Refurbishment levels according to TABULA typology:
-            1	National minimum requirement
-            2	Improved standard
-            3	Ambitious standard
+            - 1	National minimum requirement
+            - 2	Improved standard
+            - 3	Ambitious standard
 
         >> Statistics on refurbishment in non-residential buildings missing
         """
@@ -778,9 +829,9 @@ class Building:
         per typology and the maximum share of refurbished buildings (MAX_REF_RES).
 
         Refurbishment levels according to TABULA typology:
-            1	National minimum requirement
-            2	Improved standard
-            3	Ambitious standard
+            - 1	National minimum requirement
+            - 2	Improved standard
+            - 3	Ambitious standard
         """
 
         # check max share of refurbished buildings per building size class and year class
@@ -818,9 +869,9 @@ class Building:
         per typology and the maximum share of refurbished buildings (MAX_REF_NRES).
 
         Refurbishment levels according to TABULA typology:
-            1	National minimum requirement
-            2	Improved standard
-            3	Ambitious standard
+            - 1	National minimum requirement
+            - 2	Improved standard
+            - 3	Ambitious standard
         """
 
         # check max share of refurbished buildings per year class
@@ -1052,10 +1103,10 @@ class Building:
         Gets building thermal properties from TABULA Web Tool data based on the
         building typology [year_class, btype]
 
-        returns:
-            u	<list>	[u_roof, u_wall, u_floor, u_window] in W/(K m2)
-            v	<list>  [v_usage, v_infiltration] in 1/h
-            c	<list>	[c_roof, c_wall, c_floor] in J/(K m2)
+        Sets the attributes:
+            - list:	u: [u_roof, u_wall, u_floor, u_window] in W/(K m2)
+            - list: v: [v_usage, v_infiltration] in 1/h
+            - list:	c: [c_roof, c_wall, c_floor] in J/(K m2)
         """
 
         # Transmission losses (U-values) [W/(K m2)]
@@ -1120,10 +1171,10 @@ class Building:
         Gets building thermal properties based on:
         >> source missing
 
-        returns:
-            u	<list>	[u_roof, u_wall, u_floor, u_window] in W/(K m2)
-            v	<list>  [v_usage, v_infiltration] in 1/h
-            c	<list>	[c_roof, c_wall, c_floor] in J/(K m2)
+        Sets the following attributes:
+            - u	list:	[u_roof, u_wall, u_floor, u_window] in W/(K m2)
+            - v	list:   [v_usage, v_infiltration] in 1/h
+            - c	list:	[c_roof, c_wall, c_floor] in J/(K m2)
         """
 
         # Transmission losses (U-values) [W/(K m2)]
@@ -1204,9 +1255,10 @@ class Building:
     #
     def calculate_building_envelope_areas_non_residential(self):
         """
-        Calculates building envelope areas (wall, roof and window.
+        Calculates building envelope areas (wall, roof and window).
+
         Non-residential: number of floors and window-to-wall ratio are
-                     derived from statistics and used to calculate the building areas.
+        derived from statistics and used to calculate the building areas.
         Only the heated area is considered.
         """
 
@@ -1351,8 +1403,8 @@ class Building:
         Assigns random start and end hours for building active hours.
         Values differ for different building types.
 
-        returns:
-            self.active_hours	<list>		[(start0, end0), (start1, end1)] in h
+        Sets the following attributes:
+            self.active_hours	list:		[(start0, end0), (start1, end1)] in h
         """
 
         ### Residential
@@ -1486,8 +1538,8 @@ class Building:
         """
         A schedule is assigned to every occupant based on studying/working schedule.
 
-        returns:
-            occupant_vector	<list>		[dwelling, [occupant, [schedule]]] for occupant and dwelling in building
+        Sets the following attributes:
+            occupant_vector: list		= [dwelling, [occupant, [schedule]]] for occupant and dwelling in building
         """
 
         # calculate occupancy based on percentage of active population

@@ -19,6 +19,17 @@ from .City import City
 class Simulation:
     # --------------------------------------------------------------------------------
     def __init__(self, NAME, SIMULATION, CITY, SPACE_HEATING, HOT_WATER, REPORTING):
+        """
+        Initialize the UrbanHeatPro Simulation object.
+
+        Args:
+            NAME (str): The name of the simulation.
+            SIMULATION (list): A list containing the simulation parameters.
+            CITY (list): A list containing the city parameters.
+            SPACE_HEATING (list): A list containing the space heating parameters.
+            HOT_WATER (list): A list containing the hot water parameters.
+            REPORTING (list): A list containing the reporting options.
+        """
 
         repository_root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
         # UrbanHeatPro <-- this directory = repository_root_dir
@@ -941,6 +952,7 @@ class Simulation:
     #
     def convert_datetime_to_excel_date(self, dt):
         """
+        Converts a datetime object to an excel date
         """
 
         temp = datetime(1899, 12, 30)

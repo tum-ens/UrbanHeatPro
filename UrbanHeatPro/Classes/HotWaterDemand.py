@@ -14,6 +14,30 @@ class HotWaterDemand:
                  hw_tank_capacity, hw_tank_limit, hw_tank_volume_t0, hw_flow,
                  result_dir, use, year_class, btype, bid,
                  debug, save_debug):
+        """
+        HotWaterDemand class constructor
+
+        Args:
+            dt_vector: Vector with datetime objects
+            resolution: Resolution in min
+            day_vector: Vector with day of year in simulation time frame
+            seasonal_vector: Vector with seasonal variation
+            activity_vector: Vector with building activity
+            Tw: Supply temperature of water in degC
+            daily_DHW: Mean daily hot water consumption [m3]
+            dhw_prob: DWH-loads probability
+            hw_tank_capacity: Hot water tank capacity in m3
+            hw_tank_limit: Hot water tank limit in percentage
+            hw_tank_volume_t0: State of hot water tank in m3
+            hw_flow: Flow to refill hot water tank in L/min
+            result_dir: Result directory
+            use: Use of building
+            year_class: Year class
+            btype: Building type
+            bid: Building id
+            debug: Level of debug
+            save_debug: Whether to save debug files
+        """
 
         # Mean daily consumption
         self.daily_DHW = daily_DHW  # Mean daily hot water consumption [m3]

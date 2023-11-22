@@ -23,13 +23,13 @@ def plot_timeseries(dt_vector, timeseries, legend, fig_name,
     """
     Plots timeseries as steps
 
-    args:
-        dt_vector	<list>		list of datetime objects
-        timeseries	<list>		timeseries to plot [ts1, ts2, ts3]
-        legend		<list>		list of legends [leg1, leg2, leg3]
-        fig_name	<string>	figure name
-        xticks		<tuple>		('month', X), ('day', X), ('hour', X)
-                                Every X months/days/hours
+    Args:
+        dt_vector	(list):		list of datetime objects
+        timeseries	(list):		timeseries to plot [ts1, ts2, ts3]
+        legend		(list):		list of legends [leg1, leg2, leg3]
+        fig_name	(string):	figure name
+        xticks		(tuple):	Every X months/days/hours. Possible values:
+                                ('month', X), ('day', X), ('hour', X)
         ynumticks
         ylabel
         ylim0
@@ -98,13 +98,13 @@ def plot_stacked_timeseries(dt_vector, timeseries, legend, fig_name,
     """
     Plots timeseries as steps
 
-    args:
-        dt_vector	<list>		list of datetime objects
-        timeseries	<list>		timeseries to stack [ts1, ts2]
-        legend		<list>		list of legends [leg1, leg2, leg3]
-        fig_name	<string>	figure name
-        xticks		<tuple>		('month', X), ('day', X), ('hour', X)
-                                Every X months/days/hours
+    Args:
+        dt_vector	(list):		list of datetime objects
+        timeseries	(list):		timeseries to stack [ts1, ts2]
+        legend		(list):		list of legends [leg1, leg2, leg3]
+        fig_name	(string):	figure name
+        xticks		(tuple):	Every X months/days/hours. Possible values:
+                                ('month', X), ('day', X), ('hour', X)
         ynumticks
         ylabel
         ylim0

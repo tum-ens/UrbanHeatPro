@@ -17,8 +17,78 @@ from .Building import Building
 
 
 class City:
+    """
+    City class.
+
+    Note:
+        This documentation might be incomplete or outdated, check the source code for more information.
+        The types for the attributes might not be correct.
+
+    Attributes:
+        name (str): The name of the simulation.
+        region (str): The region of the simulation.
+        sce (str): The scenario of the simulation.
+        dt_vector (list): Vector of time steps as datetime objects.
+        dt_vector_excel (list): Vector of time steps as excel date.
+        nts (int): Number of time steps.
+        resolution (int): Temporal resolution in minutes.
+        number_of_typ_days (int): Number of typical days.
+        weights (list): Weights of typical days.
+        processes (int): Number of parallel processes.
+        chunk_size (int): Number of buildings in chunk to save.
+        b_to_save_syncity (ndarray): Array to save synchronicity data.
+        b_to_save_heat (ndarray): Array to save heat data.
+        counter_syncity (int): Counter for synchronicity data.
+        counter_heat (int): Counter for heat data.
+        Tamb (list): Ambient temperature vector in degrees Celsius.
+        I (list): Solar radiation vector in W/m2 [I_Gh, I_Dh, I_ex, hs].
+        buildings (list): Building data.
+        building_stock_stats (list): Building data from statistics.
+        nb (int): Number of buildings.
+        connection_factor (float): Share of buildings connected to the network.
+        _space_heating (bool): Flag to calculate space heating demand.
+        _hot_water (bool): Flag to calculate hot water demand.
+        _energy_only (bool): Flag to calculate only aggregated demand.
+        base_load (ndarray): Vector of base load in W.
+        _internal_gains (bool): Flag to consider internal gains.
+        _solar_gains (bool): Flag to consider solar gains.
+        _active_population (bool): Flag to consider active population for occupancy vector.
+        _workday_weekend (bool): Flag to consider difference between workdays and weekends.
+        _monthly_sh_prob (bool): Flag to consider monthly probability of using heating.
+        refurbishment_level (float): Refurbishment level for all buildings.
+        Tb0_str (str): Initial building temperature as 'ambient' or 'Tset'.
+        dTset (float): Delta temperature (for Tset_min, Tset_max).
+        eta (float): Heating process efficiency.
+        dT_per_hour (float): Maximum dT allowed in building per hour in degrees Celsius.
+        thermal_inertia (float): Thermal inertia of the heating system.
+        _night_set_back (float): Share of buildings with night set-back.
+        schedule_nsb (list): [start, end] of night set-back in hours.
+        T_nsb (float): Night set-back temperature in degrees Celsius.
+        power_reduction (float): Percentage of power reduced (as decimal).
+        Tw (float): Hot water temperature in degrees Celsius.
+        hw_tank_limit (float): Hot water tank limit as percentage (decimal).
+        hw_flow (float): Flow to refill hot water tank in L/min.
+        dhw_prob (list): Probabilities for calculation of hot water demand.
+        rid (int): Run id.
+        result_dir (str): Directory where results are stored.
+        plot (int): Plot level [0, 1, 2].
+        save (int): Save level [0, 1, 2].
+        debug (int): Debug level [0, 1, 2].
+    """
     # --------------------------------------------------------------------------------
     def __init__(self, NAME, SIMULATION, CITY, SPACE_HEATING, HOT_WATER, REPORTING):
+        """
+        Initializes the City object.
+
+        Args:
+            NAME (str): Name of the simulation.
+            SIMULATION (list): List containing the parameters related to the simulation.
+            CITY (list): List containing the parameters related to the city.
+            SPACE_HEATING (list): List containing the parameters related to space heating demand.
+            HOT_WATER (list): List containing the parameters related to hot water demand.
+            REPORTING (list): List containing the parameters related to reporting.
+        """
+
 
         # SIMULATION
         self.name = NAME  # Simulation name
@@ -603,7 +673,7 @@ class City:
         object is created and the heat demand is calculted. If it is not, then the
         heat demand is set to zero.
 
-        args:
+        Args:
             building	dataframe with building information
             iii			building counter
         """
@@ -907,9 +977,8 @@ class City:
         the year due to the seasonal variation.
 
         Args:
-            amplitude		<float>		Variation of consumption (% of nominal load)
-            max_point		<int>		Day in year with the highest hot water consumption
-                                        (lowest ambient temperature)
+            amplitude (float):		Variation of consumption (% of nominal load)
+            max_point (int):		Day in year with the highest hot water consumption (lowest ambient temperature)
 
         Returns:
             seasonal_vector	<numpy array>
@@ -933,7 +1002,7 @@ class City:
         time frame. Maximum length is 366.
 
         Returns:
-            self.day_vector	<list>	list of day numbers in simulation time frame
+            list: self.day_vector, list of day numbers in simulation time frame
                                     with start and end indices
         """
 
@@ -968,7 +1037,7 @@ class City:
         366*24*60.
 
         Returns:
-            self.min_vector	<list>	list of time steps in minutes
+            list: self.min_vector, list of time steps in minutes
         """
 
         # initialize min_vector

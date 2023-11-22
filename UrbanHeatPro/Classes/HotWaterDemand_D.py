@@ -7,6 +7,16 @@ A. Molar-Cruz @ TUM ENS
 class HotWaterDemand_D:
     # --------------------------------------------------------------------------------
     def __init__(self, resolution, day_vector, Tw, daily_DHW):
+        """
+        Initializes the HotWaterDemand class with the given parameters.
+
+        Args:
+            resolution: The resolution of the simulation in minutes.
+            day_vector: A list of integers representing the day of the year in the simulation time frame.
+            Tw: The supply temperature of water in degrees Celsius.
+            daily_DHW: The mean daily hot water consumption in cubic meters.
+
+        """
         # Mean daily consumption
         self.daily_DHW = daily_DHW  # Mean daily hot water consumption [m3]
 

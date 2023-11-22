@@ -21,6 +21,37 @@ class SpaceHeatingDemand:
                  _solar_gains, _internal_gains,
                  _night_set_back, schedule_nsb, T_nsb, power_reduction,
                  window_areas, coords, debug):
+        """
+        Initializes an instance of the SpaceHeatingDemand class.
+
+        Args:
+            dt_vector: List of time steps as datetime objects.
+            resolution: Resolution in minutes.
+            heated_area: Heated area in square meters.
+            Tamb: Ambient temperature vector in degrees Celsius.
+            I: Solar radiation vector in W/m2.
+            Tb0: Initial building temperature in degrees Celsius.
+            dT_per_hour: Maximum change in temperature allowed per hour in degrees Celsius.
+            eta: Heating process efficiency.
+            thermal_intertia: Thermal inertia of the heating system.
+            U: Building transmission losses in W/K.
+            V : Building ventilation losses in W/K.
+            C: Equivalent building thermal mass in J/K.
+            Tset: Set temperature or target temperature in degrees Celsius.
+            dTset: Delta temperature for Tset_min and Tset_max.
+            activity_vector: Building activity vector (0, 1).
+            occupancy_vector: Number of occupants in the building in each time step.
+            sh_prob: Probability vector of using space heating.
+            _solar_gains: Solar gains in W/m2.
+            _internal_gains: Internal gains in W/m2.
+            _night_set_back: Share of buildings with night set-back.
+            schedule_nsb: Start and end of night set-back in hours.
+            T_nsb: Night set-back temperature in degrees Celsius.
+            power_reduction: Percentage of power reduced (as decimal).
+            window_areas: Window area oriented to [E, S, W, N] in square meters.
+            coords: (latitude, longitude) of the building centroid.
+            debug: Debug flag.
+        """
 
         # Building thermal properties
         self.U = U  # Building transmission losses in W/K
@@ -251,7 +282,7 @@ class SpaceHeatingDemand:
         [VDI 2078]
 
         returns:
-            self.internal_gains[iii]	<float>		Heat gain in W
+            float:		self.internal_gains[iii]: Heat gain in W
         """
 
         # Internal heat gain at night
@@ -275,7 +306,7 @@ class SpaceHeatingDemand:
         Method adapted from TABULA
 
         returns:
-            self.solar_gains[iii]	<float>		Heat gain in W
+            float:		self.solar_gains[iii]: Heat gain in W
         """
 
         # calculate global incident solar radiation on tilted surface in W
@@ -313,18 +344,18 @@ class SpaceHeatingDemand:
         High-resolution spatio-temporal matching of residential electricity consumption and
         PV power production at the urban scale (Molar-Cruz, 2015)
 
-        args:
-            I_Gh		<float>		Global horizonal radiation in W/m2
-            I_Dh		<float>		Diffuse horizontal radiation in W/m2
-            I_ex		<float>		Extraterrestrial solar radiation in W/m2
-            hs			<float>		Sun elevation angle in deg
-            lat			<float>		Latitude in degrees
-            lon			<float>		Longitude in degrees
-            slope		<int>		Inclination angle of window. Vertical = 90 deg
-            orientation <int>		Window orientation
+        Args:
+            I_Gh		(float):		Global horizonal radiation in W/m2
+            I_Dh		(float):		Diffuse horizontal radiation in W/m2
+            I_ex		(float):		Extraterrestrial solar radiation in W/m2
+            hs			(float):		Sun elevation angle in deg
+            lat			(float):		Latitude in degrees
+            lon			(float):		Longitude in degrees
+            slope		(int):		Inclination angle of window. Vertical = 90 deg
+            orientation (int):		Window orientation
 
         returns:
-            I_Gt		<float>		Incident global solar radiation on tilted surface
+            float:		I_Gt: Incident global solar radiation on tilted surface
         """
 
         # check if there is sunlight
@@ -416,6 +447,7 @@ class SpaceHeatingDemand:
             print('I_Bt + I_Dt + I_Rt')
             print(I_Bt, I_Dt, I_Rt)
             print(A_i)
+            # this is a bug: where does this function come from?
             raw_input()
 
         return I_Gt
