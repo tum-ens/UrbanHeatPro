@@ -430,7 +430,7 @@ class Building:
             #
             # Number of floors
             try:
-                self.floors = self.building.floors
+                self.floors = int(self.building.floors)
             except:
                 self.floors = False
 
@@ -455,7 +455,7 @@ class Building:
             #
             # Number of dwellings
             try:
-                self.dwellings = self.building.dwellings
+                self.dwellings = int(self.building.dwellings)
             except:
                 self.dwellings = False
             # calculate number of dwellings per building -> self.dwellings, self.dwelling_size
@@ -464,7 +464,7 @@ class Building:
             #
             # Number of occupants
             try:
-                self.occupants_in_building = self.building.occupants
+                self.occupants_in_building = int(self.building.occupants)
             except:
                 # calculate number of occupants per building -> self.occupants
                 self.calculate_number_of_occupants_residential()
@@ -472,10 +472,10 @@ class Building:
             #
             # Refurbishment level per element
             try:
-                self.ref_level_roof = self.building.ref_level_roof
-                self.ref_level_wall = self.building.ref_level_wall
-                self.ref_level_floor = self.building.ref_level_floor
-                self.ref_level_window = self.building.ref_level_window
+                self.ref_level_roof = int(self.building.ref_level_roof)
+                self.ref_level_wall = int(self.building.ref_level_wall)
+                self.ref_level_floor = int(self.building.ref_level_floor)
+                self.ref_level_window = int(self.building.ref_level_window)
                 self.ref_level = [self.ref_level_roof, self.ref_level_wall, self.ref_level_floor, self.ref_level_window]
             except:
                 # compute refurbishment level -> self.ref_level
@@ -511,7 +511,7 @@ class Building:
             #
             # Number of floors
             try:
-                self.floors = self.building.floors
+                self.floors = int(self.building.floors)
             except:
                 self.floors = False
             # calculate floors and reference areas -> self.area_corr_factor, self.floors, self.storey_area, self.heated_area
@@ -520,7 +520,7 @@ class Building:
             #
             # Number of occupants
             try:
-                self.occupants_in_building = self.building.occupants
+                self.occupants_in_building = int(self.building.occupants)
             except:
                 # calculate number of occupants per building -> self.occupants
                 self.calculate_number_of_occupants_non_residential()
@@ -530,10 +530,10 @@ class Building:
             #
             # Refurbishment level per element
             try:
-                self.ref_level_roof = self.building.ref_level_roof
-                self.ref_level_wall = self.building.ref_level_wall
-                self.ref_level_floor = self.building.ref_level_floor
-                self.ref_level_window = self.building.ref_level_window
+                self.ref_level_roof = int(self.building.ref_level_roof)
+                self.ref_level_wall = int(self.building.ref_level_wall)
+                self.ref_level_floor = int(self.building.ref_level_floor)
+                self.ref_level_window = int(self.building.ref_level_window)
                 self.ref_level = [self.ref_level_roof, self.ref_level_wall, self.ref_level_floor, self.ref_level_window]
             except:
                 # compute refurbishment level -> self.ref_level
