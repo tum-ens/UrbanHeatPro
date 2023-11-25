@@ -1,6 +1,5 @@
 """
-runme.py
-A. Molar-Cruz @ TUM ENS
+Run the UrbanHeatPro model.
 """
 
 import multiprocessing
