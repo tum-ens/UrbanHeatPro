@@ -1,0 +1,8 @@
+numpy
+scipy
+pandas
+matplotlib
+geopandas
+sorcery
+setuptools
+PyYAML
